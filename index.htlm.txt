@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Estancia - Casa 23</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --navy-deep: #0B192C;
+            --gold-luxury: #C5A059;
+            --sand-bg: #F9F7F1;
+            --white: #FFFFFF;
+            --slate-text: #334155;
+            --alert-bg: #FFFBEB;
+            --alert-border: #D97706;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body { 
+            background-color: var(--sand-bg); 
+            color: var(--slate-text);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        /* BANNER PRINCIPAL CON FOTO DE LA CASA */
+        .hero-banner {
+            background: linear-gradient(rgba(11, 25, 44, 0.45), rgba(11, 25, 44, 0.75)), url('casa.jpg');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            text-align: center;
+            padding: 70px 20px;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: 0 10px 20px rgba(11,25,44,0.2);
+            position: relative;
+        }
+
+        .hero-banner h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 5px;
+        }
+
+        .hero-banner p {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--gold-luxury);
+            font-weight: 500;
+        }
+
+        /* BOTÓN SELECTOR DE IDIOMA */
+        .lang-switch {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--white);
+            color: var(--navy-deep);
+            border: 1px solid var(--gold-luxury);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            z-index: 1000;
+        }
+
+        .main-wrapper {
+            padding: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* SECCIÓN DE BIENVENIDA */
+        .welcome-box {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 20px;
+            margin-top: -35px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            border: 1px solid rgba(197,160,89,0.15);
+        }
+
+        .welcome-box h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--navy-deep);
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .welcome-box p {
+            font-size: 14px;
+            color: #475569;
+        }
+
+        /* ACCESOS RÁPIDOS */
+        .quick-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .quick-item {
+            background: var(--white);
+            padding: 16px;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .quick-item i {
+            font-size: 20px;
+            color: var(--gold-luxury);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .quick-item span {
+            display: block;
+            font-size: 11px;
+            color: #64748B;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .quick-item strong {
+            font-size: 16px;
+            color: var(--navy-deep);
+            display: block;
+            margin-top: 2px;
+        }
+
+        /* ACORDEONES INTERACTIVOS */
+        .accordion-card {
+            background: var(--white);
+            margin-bottom: 14px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+
+        .accordion-card input[type="checkbox"] {
+            display: none;
+        }
+
+        .accordion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--navy-deep);
+            font-size: 15px;
+            transition: background 0.2s;
+        }
+
+        .accordion-header .title-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .accordion-header i.icon-main {
+            color: var(--gold-luxury);
+            font-size: 18px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .accordion-header::after {
+            content: '\f107';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            color: #94A3B8;
+            transition: transform 0.3s;
+        }
+
+        .accordion-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            padding: 0 20px;
+            background: #FAFAFB;
+            font-size: 14px;
+            color: #475569;
+        }
+
+        /* LÓGICA DE APERTURA */
+        .accordion-card input:checked ~ .accordion-body {
+            max-height: 2500px;
+            padding: 20px;
+            border-top: 1px solid #F1F5F9;
+        }
+
+        .accordion-card input:checked ~ .accordion-header::after {
+            transform: rotate(-180deg);
+            color: var(--gold-luxury);
+        }
+
+        /* ESTILOS INTERNOS DE CONTENIDO */
+        .warning-card {
+            background-color: var(--alert-bg);
+            border-left: 4px solid var(--alert-border);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 13.5px;
+        }
+
+        .wifi-box {
+            background: #F1F5F9;
+            padding: 12px 15px;
+            border-radius: 10px;
+            font-family: monospace;
+            margin: 10px 0;
+            border: 1px dashed #CBD5E1;
+            font-size: 14px;
+        }
+
+        .sub-list {
+            list-style: none;
+            margin-top: 5px;
+        }
+
+        .sub-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .sub-list li::before {
+            content: "•";
+            color: var(--gold-luxury);
+            font-weight: bold;
+            font-size: 18px;
+            position: absolute;
+            left: 5px;
+            top: -2px;
+        }
+
+        .place-row {
+            padding: 12px 0;
+            border-bottom: 1px dashed #E2E8F0;
+        }
+        .place-row:last-child { border: none; }
+        .place-tag { font-weight: 700; color: var(--navy-deep); }
+
+        /* BOTONES DE MAPA */
+        .map-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #EFF6FF;
+            color: #2563EB;
+            padding: 8px 14px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        /* BOTÓN FLOTANTE DIRECTO WHATSAPP */
+        .footer-action {
+            position: fixed;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 40px);
+            max-width: 460px;
+            z-index: 999;
+        }
+
+        .btn-wa-direct {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background-color: #25D366;
+            color: var(--white);
+            padding: 14px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 15px;
+            box-shadow: 0 8px 20px rgba(37,211,102,0.35);
+        }
+
+        .signature {
+            text-align: center;
+            margin: 30px 0 40px 0;
+            font-size: 12px;
+            color: #94A3B8;
+        }
+
+        /* MULTIIDIOMA: LÓGICA DE APAGADO/ENCENDIDO DE CONTENIDOS */
+        .lang-en { display: none; }
+    </style>
+</head>
+<body>
+
+    <button class="lang-switch" onclick="toggleLanguage()">
+        <i class="fa-solid fa-globe"></i> <span id="langBtnText">🇺🇸 English</span>
+    </button>
+
+    <div class="hero-banner">
+        <h1 class="lang-es">GUIA PARA TU ESTANCIA CON NOSOTROS</h1>
+        <h1 class="lang-en">WELCOME TO YOUR STAY WITH US</h1>
+        <p class="lang-es">Casa Santa Barbara • Cabo San Lucas</p>
+        <p class="lang-en">Casa Santa Barbara • Cabo San Lucas</p>
+    </div>
+
+    <div class="main-wrapper">
+
+        <div class="welcome-box">
+            <div class="lang-es">
+                <h2>¡Hola! 👋</h2>
+                <p>Te damos la más cordial bienvenida. En esta guía encontrarás toda la información necesaria para disfrutar al máximo tanto de la casa como de Cabo.</p>
+                <p style="margin-top: 12px; font-style: italic; font-size: 13.5px; color: #64748B;">"Ponte cómodo, explora y comienza a disfrutar. Si necesitan cualquier cosa estamos a un mensaje de distancia."</p>
+            </div>
+            <div class="lang-en">
+                <h2>Hello! 👋</h2>
+                <p>We give you our warmest welcome. In this guide, you will find all the necessary information to fully enjoy both the house and Cabo.</p>
+                <p style="margin-top: 12px; font-style: italic; font-size: 13.5px; color: #64748B;">"Get comfortable, explore, and start enjoying. If you need anything, we are just a message away."</p>
+            </div>
+        </div>
+
+        <div class="quick-grid">
+            <div class="quick-item">
+                <i class="fa-solid fa-key"></i>
+                <span class="lang-es">Código Chapa</span>
+                <span class="lang-en">Door Code</span>
+                <strong>8202</strong>
+            </div>
+            <div class="quick-item">
+                <i class="fa-solid fa-door-open"></i>
+                <span class="lang-es">Check-Out</span>
+                <span class="lang-en">Check-Out</span>
+                <strong>11:00 AM</strong>
+            </div>
+        </div>
+
+        <div class="accordion-card">
+            <input type="checkbox" id="c1">
+            <label class="accordion-header" for="c1">
+                <div class="title-group">
+                    <i class="fa-solid fa-map-location-dot icon-main"></i>
+                    <span class="lang-es">📍 Información Clave</span>
+                    <span class="lang-en">📍 Key Information</span>
+                </div>
+            </label>
+            <div class="accordion-body">
+                <div class="lang-es">
+                    <p><strong>Dirección:</strong> Calle Turrucares Casa 23, Santa Barbara Col. Brisas del Pacifico, Cabo San Lucas, Baja California Sur, C.P. 23473.</p>
+                    <a href="https://maps.google.com/?q=Calle+Turrucares+Casa+23+Santa+Barbara+Cabo+San+Lucas" class="map-link" target="_blank">
+                        <i class="fa-solid fa-location-arrow"></i> Abrir en Google Maps
+                    </a>
+                    <br><br>
+                    <p><strong>Conexión Wi-Fi de la Casa:</strong></p>
+                    <div class="wifi-box">
+                        <strong>Red:</strong> CasaSB23<br>
+                        <strong>Clave:</strong> z27PpgNUka
+                    </div>
+                    <p style="font-size: 12px; color: #64748B;">💡 Tip: Copia y pega la clave directamente desde este cuadro.</p>
+                </div>
+                <div class="lang-en">
+                    <p><strong>Address:</strong> Calle Turrucares Casa 23, Santa Barbara Col. Brisas del Pacifico, Cabo San Lucas, Baja California Sur, C.P. 23473.</p>
+                    <a href="https://maps.google.com/?q=Calle+Turrucares+Casa+23+Santa+Barbara+Cabo+San+Lucas" class="map-link" target="_blank">
+                        <i class="fa-solid fa-location-arrow"></i> Open in Google Maps
+                    </a>
+                    <br><br>
+                    <p><strong>House Wi-Fi Connection:</strong></p>
+                    <div class="wifi-box">
+                        <strong>Network:</strong> CasaSB23<br>
+                        <strong>Password:</strong> z27PpgNUka
+                    </div>
+                    <p style="font-size: 12px; color: #64748B;">💡 Tip: Copy and paste the network password directly from here.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-card">
+            <input type="checkbox" id="c2">
+            <label class="accordion-header" for="c2">
+                <div class="title-group">
+                    <i class="fa-solid fa-house-laptop icon-main"></i>
+                    <span class="lang-es">🏠 Detalles sobre la Casa</span>
+                    <span class="lang-en">🏠 House Details</span>
+                </div>
+            </label>
+            <div class="accordion-body">
+                <div class="lang-es">
+                    <div class="warning-card">
+                        <strong>⚠️ El Agua (¡Vital en Cabo!):</strong><br>
+                        La ciudad solo suministra agua una vez por mes (o a veces cada 5 semanas). Si se les acaba, necesitamos reabastecerla mediante camiones cisterna (lo cual es muy costoso). Esto aplica a todo Cabo. Nuestro personal revisa los niveles regularmente.
+                        <strong>POR FAVOR, CUIDEN EL AGUA. NO LA DESPERDICIEN NI LA DEJEN CORRER.</strong>
+                    </div>
+                    <p><strong>🧹 Ama de llaves (Mary):</strong></p>
+                    <p>Mary nos ha apoyado con total confianza por más de 14 años. Asiste los días <strong>Lunes, Miércoles y Viernes</strong>, aunque los días pueden variar según las reservaciones. Ella tiene acceso a la casa, pero no entrará a las habitaciones hasta que tú se lo permitas. Al llegar, comenzará limpiando la planta baja y lavando los trastes. Nota: El servicio de lavandería de ropa personal y la cocina no están incluidos en sus actividades, pero puede realizarlos a cambio de una propina extra. Por favor, avísale con tiempo para que organice su día.</p>
+                    <br>
+                    <p><strong>🔥 Piscina y Calefacción:</strong></p>
+                    <p>La calefacción de la piscina opera mediante encendido manual. Las instrucciones estan en el área de máquinas de la piscina. Te pedimos amablemente apagarla una vez que el agua alcance la temperatura ideal para tu comodidad.</p>
+                    <p>Limpieza piscina: El encargado de la piscina entra solo por el patio trasero, limpia durante unos 10 minutos y se va. Si prefieres total privacidad, favor de avisarnos.</p>
+                </div>
+                <div class="lang-en">
+                    <div class="warning-card">
+                        <strong>⚠️ Water Supply (Vital in Cabo):</strong><br>
+                        The city only supplies water once a month (sometimes every 5 weeks). If it runs out, we need to refill it via water trucks (which is very expensive). This applies to all of Cabo. Our staff checks the levels regularly.
+                        <strong>PLEASE CONSERVE WATER. DO NOT WASTE IT OR LET IT RUN.</strong>
+                    </div>
+                    <p><strong>🧹 Housekeeper (Mary):</strong></p>
+                    <p>Mary has supported us with absolute trust for over 14 years. She attends on <strong>Mondays, Wednesdays, and Fridays</strong>, although days may vary depending on reservations. She has access to the house but will not enter bedrooms until you allow it. Upon arrival, she will start cleaning the ground floor and washing dishes. Note: Personal laundry service and heavy cooking are not included in her main activities, but she can perform them in exchange for an extra tip. Please notify her ahead of time to organize her day.</p>
+                    <br>
+                    <p><strong>🔥 Pool and Heating:</strong></p>
+                    <p>The pool heating operates via manual activation. Instructions are located in the pool's equipment area. We kindly ask you to turn it off once the water reaches the ideal temperature for your comfort.</p>
+                    <p>Pool Cleaning: The pool technician enters only through the backyard, cleans for about 10 minutes, and leaves. If you prefer absolute privacy, please let us know.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-card">
+            <input type="checkbox" id="c3">
+            <label class="accordion-header" for="c3">
+                <div class="title-group">
+                    <i class="fa-solid fa-gears icon-main"></i>
+                    <span class="lang-es">⚙️ Equipamiento de la Casa</span>
+                    <span class="lang-en">⚙️ House Equipment & Tips</span>
+                </div>
+            </label>
+            <div class="accordion-body">
+                <div class="lang-es">
+                    <ul class="sub-list">
+                        <li><strong>Aires Acondicionados:</strong> Para su comodidad mantenga las puertas y ventanas cerradas cuando el aire acondicionado esté encendido. Apáguelo siempre que salgas de la casa. Todos los controles funcionan correctamente, aunque a veces es necesario presionar con firmeza el botón de encendido / apagado.</li>
+                        <li><strong>Agua Caliente:</strong> El sistema es automático. La ducha de la recámara principal puede demorar cerca de 2 minutos en regular su temperatura ideal. Importante: Si todas las duchas se usan simultáneamente, es posible que no salga agua caliente. Se recomienda no usarlas todas al mismo tiempo.</li>
+                        <li><strong>Sistemas de TV:</strong> Cuentas con pantallas inteligentes. Puedes usar tus propias cuentas de Netflix/Prime/HBO (recuerda cerrar sesión al salir). El televisor de la planta superior tiene la aplicación POP TV que ofrece una variedad de películas y series gratuitas.</li>
+                        <li><strong>Uso de la Cocina:</strong> La parrilla de inducción cuenta con un sistema de bloqueo para niños. El horno de microondas: para encenderlo, mantenga presionado durante 3 segundos. Deja enfriar el equipo de 3 a 5 minutos entre cada uso para un funcionamiento óptimo.</li>
+                        <li><strong>Lavandería:</strong> El cuarto de lavado se ubica en la parte trasera de la casa.</li>
+                        <li><strong>Terraza de la alberca:</strong> Para abrir los ventanales de la sala, utiliza los pasadores inferiores: HACIA ABAJO - ABRE / HACIA ARRIBA - CIERRA.</li>
+                        <li><strong>Reja patio trasero:</strong> Tiene candado, pero puedes abrirla levantando el pasador de la parte inferior.</li>
+                        <li><strong>Luces exteriores:</strong> Cada habitación con vista a la piscina tiene interruptores de luz exteriores. Mirando hacia la piscina desde la habitación, están a la izquierda de las ventanas. Por favor, asegúrese de apagarlas después de usarlas para que no permanezcan encendidas todo el día.</li>
+                        <li><strong>Seguridad:</strong> La casa y la urbanización son muy seguras, pero le recomiendo que cierre las ventanas antes de salir. En 15 años nunca hemos tenido ningún incidente.</li>
+                        <li><strong>Reserva de agua:</strong> En caso de que se termine el agua de la cisterna principal, contamos con un tanque de agua de reserva de 2,500 lts que está en la parte trasera entrando por el pasillo de la cochera, donde también podrá encontrar las instrucciones del trasvase.</li>
+                    </ul>
+                </div>
+                <div class="lang-en">
+                    <ul class="sub-list">
+                        <li><strong>Air Conditioning:</strong> For your comfort, please keep all doors and windows closed when running. Always turn it off when leaving the house. All remotes work properly, though sometimes you need to press the power button firmly.</li>
+                        <li><strong>Hot Water:</strong> The system is fully automatic. The master bedroom shower can take about 2 minutes to reach its ideal temperature. Important: If all showers are used simultaneously, hot water flow might decrease. We recommend not using them all at the exact same time.</li>
+                        <li><strong>TV Systems:</strong> Smart TVs are available. Feel free to use your own accounts (remember to log out before departure). The upstairs TV features the POP TV application for free movies and series.</li>
+                        <li><strong>Kitchen Use:</strong> The induction stovetop features a child-safety lock system. For the microwave: to turn it on, hold the start button for 3 seconds. Allow the appliance to cool for 3 to 5 minutes between uses for optimal performance.</li>
+                        <li><strong>Laundry Room:</strong> The laundry room is located in the rear area of the house.</li>
+                        <li><strong>Pool Terrace:</strong> To open the large living room windows, use the lower latches: DOWN TO OPEN / UP TO LOCK.</li>
+                        <li><strong>Backyard Gate:</strong> It is padlocked, but you can easily open it by lifting the lower pin latch.</li>
+                        <li><strong>Outdoor Lights:</strong> Each room facing the pool has outdoor light switches. Looking towards the pool from inside, they are on the left side of the windows. Please make sure to turn them off after use so they don't stay on all day.</li>
+                        <li><strong>Security:</strong> The house and community are extremely safe, but we recommend closing windows before going out. In 15 years, we have never had a single incident.</li>
+                        <li><strong>Water Backup:</strong> In case the main cistern water finishes, we have a 2,500-liter backup tank located in the back, accessible through the garage hallway, where you can also find transferring instructions.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-card">
+            <input type="checkbox" id="c4">
+            <label class="accordion-header" for="c4">
+                <div class="title-group">
+                    <i class="fa-solid fa-scale-balanced icon-main"></i>
+                    <span class="lang-es">📜 Normas de la Casa</span>
+                    <span class="lang-en">📜 House Rules</span>
+                </div>
+            </label>
+            <div class="accordion-body">
+                <div class="lang-es">
+                    <ul class="sub-list">
+                        <li>🚭 No fumar dentro de la casa.</li>
+                        <li>🔇 Respetar a nuestros vecinos manteniendo el ruido bajo después de las 9:00 PM.</li>
+                        <li>🚪 Al salir de casa evitar dejar los aires acondicionados y las luces encendidas.</li>
+                        <li>🛋️ Respetar y cuidar el mobiliario, decoraciones y artículos de uso personal de la casa.</li>
+                    </ul>
+                </div>
+                <div class="lang-en">
+                    <ul class="sub-list">
+                        <li>🚭 Strictly no smoking inside the house.</li>
+                        <li>🔇 Respect our neighbors by keeping noise levels low after 9:00 PM.</li>
+                        <li>🚪 When leaving, avoid leaving air conditioners and lights turned on.</li>
+                        <li>🛋️ Respect and take care of the furniture, decor, and personal items in the villa.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-card">
+            <input type="checkbox" id="c5">
+            <label class="accordion-header" for="c5">
+                <div class="title-group">
+                    <i class="fa-solid fa-umbrella-beach icon-main"></i>
+                    <span class="lang-es">🌴 Lugares para Visitar</span>
+                    <span class="lang-en">🌴 Places to Visit</span>
+                </div>
+            </label>
+            <div class="accordion-body">
+                <div class="lang-es">
+                    <h3 style="color: var(--navy-deep); font-size: 15px; margin-bottom: 8px;"><i class="fa-solid fa-water"></i> Playas Imperdibles:</h3>
+                    <div class="place-row">
+                        <span class="place-tag">Playa El Médano:</span>
+                        <p>Ambiente: La más famosa, animada y concurrida. Ideal para restaurantes, clubes de playa y deportes acuáticos.<br>Horario: Público / Libre 24 horas.<br>Pet Friendly: Sí (con correa). Común en terrazas y zonas menos congestionadas.<br>Distancia: 5.2 km (⏱️ 15 min en auto).</p>
+                        <a href="https://maps.google.com/?q=Calle+Turrucares+Casa+23+Santa+Barbara+Cabo+San+Lucas" class="map-link" target="_blank"><i class="fa-solid fa-location-arrow"></i> Abrir en Google Maps</a>
+                    </div>
+                    <div class="place-row">
+                        <span class="place-tag">Playa Chileno:</span>
+                        <p>Ambiente: Familiar y hermosa. Perfecta para nadar y hacer snorkel (arrecifes y peces de colores). Cuenta con baños, regaderas y acceso inclusivo.<br>Horario: 7:00 AM a 7:00 PM.<br>Pet Friendly: No (Playa Blue Flag).<br>Distancia: 18.1 km (⏱️ 30 min por la Carr. Transpeninsular).</p>
+                        <a href="https://maps.google.com/?q=Calle+Turrucares+Casa+23+Santa+Barbara+Cabo+San+Lucas" class="map-link" target="_blank"><i class="fa-solid fa-location-arrow"></i> Abrir en Google Maps</a>
+                    </div>
+                    <div class="place-row">
+                        <span class="place-tag">Playa Santa María:</span>
+                        <p>Ambiente: Bahía protegida en forma de herradura, aguas turquesas y tranquilas. Top para snorkel. Cuenta con baños y regaderas.<br>Horario: 7:00 AM a 7:00 PM.<br>Pet Friendly: No (Playa Blue Flag).<br>Distancia: 16.6 km (⏱️ 25-30 min por la Carr. Transpeninsular).</p>
+                        <a href="https://maps.google.com/?q=Calle+Turrucares+Casa+23+Santa+Barbara+Cabo+San+Lucas" class="map-link" target="_blank"><i class="fa-solid fa-location-arrow"></i> Abrir en Google Maps</a>
+                    </div>
+
+                    <h3 style="color: var(--navy-deep); font-size: 15px; margin: 15px 0 8px 0;"><i class="fa-solid fa-utensils"></i> Recomendaciones Gastronómicas:</h3>
+                    <ul class="sub-list">
+                        <li><strong>Comida Japonesa:</strong> Nick San (Cocina fusión de alta gama) o Koi Sushi (Una excelente y práctica opción ubicada junto a Walmart).</li>
+                        <li><strong>Tacos Locales:</strong> Tacos El Paisa (El favorito de la comunidad local, situado rumbo a Av. Leona Vicario).</li>
+                        <li><strong>Vistas Inolvidables:</strong> Sunset Monalisa (Perfecto para cenas románticas con vista espectacular directamente al Arco de Cabo San Lucas).</li>
+                        <li><strong>Paseo en San José:</strong> La Lupita Taco & Mezcal (Exquisitos tacos gourmet acompañados de música en vivo).</li>
+                    </ul>
+                </div>
+                <div class="lang-en">
+                    <h3 style="color: var(--navy-deep); font-size: 15px; margin-bottom: 8px;"><i class="fa-solid fa-water"></i> Must-Visit Beaches:</h3>
+                    <div class="place-row">
+                        <span class="place-tag">El Médano Beach:</span>
+                        <p>Vibe: The most famous, lively, and crowded. Perfect for beach clubs, water sports, and beachside dining.<br>Hours: Public / Free 24/7.<br>Pet Friendly: Yes (on leash). Common in less crowded areas.<br>Distance: 5.2 km (⏱️ 15 min drive).</p>
+                        <a href="https://maps.google.com/?q=Calle+Turrucares+Casa+23+Santa+Barbara+Cabo+San+Lucas" class="map-link" target="_blank"><i class="fa-solid fa-location-arrow"></i> Open in Google Maps</a>
+                    </div>
+                    <div class="place-row">
+                        <span class="place-tag">Chileno Beach:</span>
+                        <p>Vibe: Family-friendly and pristine. Perfect for swimming and snorkeling (colorful coral reefs and fish). Features restrooms, showers, and accessible walkways.<br>Hours: 7:00 AM to 7:00 PM.<br>Pet Friendly: No (Blue Flag Beach).<br>Distance: 18.1 km (⏱️ 30 min via Transpeninsular Highway).</p>
+                        <a href="https://maps.google.com/?q=Calle+Turrucares+Casa+23+Santa+Barbara+Cabo+San+Lucas" class="map-link" target="_blank"><i class="fa-solid fa-location-arrow"></i> Open in Google Maps</a>
+                    </div>
+                    <div class="place-row">
+                        <span class="place-tag">Santa María Beach:</span>
+                        <p>Vibe: Protected horseshoe-shaped bay with calm turquoise waters. Top spot for snorkeling. Equipped with public restrooms and showers.<br>Hours: 7:00 AM to 7:00 PM.<br>Pet Friendly: No (Blue Flag Beach).<br>Distance: 16.6 km (⏱️ 25-30 min via Transpeninsular Highway).</p>
+                        <a href="https://maps.google.com/?q=Calle+Turrucares+Casa+23+Santa+Barbara+Cabo+San+Lucas" class="map-link" target="_blank"><i class="fa-solid fa-location-arrow"></i> Open in Google Maps</a>
+                    </div>
+
+                    <h3 style="color: var(--navy-deep); font-size: 15px; margin: 15px 0 8px 0;"><i class="fa-solid fa-utensils"></i> Dining Recommendations:</h3>
+                    <ul class="sub-list">
+                        <li><strong>Japanese Food:</strong> Nick San (High-end fusion) or Koi Sushi (An excellent, casual, and practical option located right next to Walmart).</li>
+                        <li><strong>Local Tacos:</strong> Tacos El Paisa (The local community favorite, located towards Av. Leona Vicario).</li>
+                        <li><strong>Unforgettable Views:</strong> Sunset Monalisa (Perfect for romantic dinners with a spectacular direct view of the Cabo Arch).</li>
+                        <li><strong>Day Out in San José:</strong> La Lupita Taco & Mezcal (Exquisite gourmet tacos paired with lively live music).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-card">
+            <input type="checkbox" id="c6">
+            <label class="accordion-header" for="c6">
+                <div class="title-group">
+                    <i class="fa-solid fa-clipboard-check icon-main"></i>
+                    <span class="lang-es">🏁 Checklist de Salida</span>
+                    <span class="lang-en">🏁 Check-Out Checklist</span>
+                </div>
+            </label>
+            <div class="accordion-body">
+                <div class="lang-es">
+                    <p>Antes de irte, te agradeceríamos muchísimo tu apoyo con los siguientes detalles:</p>
+                    <br>
+                    <ol style="padding-left: 20px;">
+                        <li style="margin-bottom: 8px;"><strong>Apagar equipos:</strong> Verifica apagar todas las luces, aires acondicionados, ventiladores y la calefacción de la alberca.</li>
+                        <li style="margin-bottom: 8px;"><strong>Toallas:</strong> Deja las toallas utilizadas directamente en el suelo del cuarto de baño o dentro de la canasta de lavado.</li>
+                        <li style="margin-bottom: 8px;"><strong>Gestión de Basura:</strong> Retira la basura acumulada dentro de la propiedad y colócala en el contenedor de basura exterior de la casa.</li>
+                        <li style="margin-bottom: 8px;"><strong>Seguridad:</strong> Revisa minuciosamente que todas las ventanas y puertas de acceso queden perfectamente cerradas con seguro.</li>
+                        <li style="margin-bottom: 8px;"><strong>Aviso de Salida:</strong> Envíanos un mensaje rápido por WhatsApp para confirmar que has dejado la propiedad y desearte un excelente viaje de regreso.</li>
+                    </ol>
+                    <div class="warning-card" style="background: #F1F5F9; border-left: 4px solid #64748B; margin-top: 15px;">
+                        <strong>¿Late Check-out?:</strong> Intentamos ser totalmente flexibles con los horarios. Para gestionarlo, por favor escríbenos un día antes de tu salida para revisar la disponibilidad del calendario.
+                    </div>
+                </div>
+                <div class="lang-en">
+                    <p>Before you leave, we would highly appreciate your support with the following details:</p>
+                    <br>
+                    <ol style="padding-left: 20px;">
+                        <li style="margin-bottom: 8px;"><strong>Turn off equipment:</strong> Double-check to turn off all lights, air conditioners, fans, and the pool heating system.</li>
+                        <li style="margin-bottom: 8px;"><strong>Towels:</strong> Leave used towels on the bathroom floor or inside the laundry basket.</li>
+                        <li style="margin-bottom: 8px;"><strong>Trash Management:</strong> Take out all accumulated trash from the property and place it in the community external container.</li>
+                        <li style="margin-bottom: 8px;"><strong>Security:</strong> Meticulously verify that all windows and entry doors are fully locked.</li>
+                        <li style="margin-bottom: 8px;"><strong>Departure Notice:</strong> Send us a quick WhatsApp text to confirm you have left the property so we can wish you an excellent flight back home.</li>
+                    </ol>
+                    <div class="warning-card" style="background: #F1F5F9; border-left: 4px solid #64748B; margin-top: 15px;">
+                        <strong>Late Check-out?:</strong> We try to be fully flexible with schedules. To request it, please text us the day before your check-out to verify calendar availability.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-card">
+            <input type="checkbox" id="c7">
+            <label class="accordion-header" for="c7">
+                <div class="title-group">
+                    <i class="fa-solid fa-phone-volume icon-main"></i>
+                    <span class="lang-es">📞 Contactos e Emergencias</span>
+                    <span class="lang-en">📞 Emergency Contacts</span>
+                </div>
+            </label>
+            <div class="accordion-body">
+                <p>🟢 <strong>Luis Aguilar (Propietario):</strong> +52 624 1574806</p>
+                <p>👨‍💼 <strong>Iván Santana (Gerencia Local):</strong> +52 624 1831140</p>
+                <p>🚕 <strong>Servicio de Taxi Directo:</strong> +52 624 1463039</p>
+                <p>🚨 <strong>Emergencia:</strong> 911</p>
+                <p>🚨 <strong>Línea Nacional de Bomberos o Policia:</strong> 060 o +52 624 1433577</p>
+                <br>
+                <div class="lang-es">
+                    <p style="font-size: 13px; color: #64748B;">*Nota del Anfitrión: Radico en la ciudad de Guadalajara, Jalisco, sin embargo, nuestro equipo local de administración en Cabo está listo para asistirte presencialmente ante cualquier eventualidad.</p>
+                </div>
+                <div class="lang-en">
+                    <p style="font-size: 13px; color: #64748B;">*Host Note: I am based in the city of Guadalajara, Jalisco, however, our local property management team in Cabo is fully ready to assist you on-site for any needs.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="signature">
+            <div class="lang-es">
+                <p>Una vez más, queremos expresar nuestro más sincero agradecimiento por elegir nuestra casa para tu alojamiento. Estamos emocionados de tener la oportunidad de brindarte una experiencia excepcional y estamos aquí para ayudarte en todo momento.</p>
+                <p style="margin-top: 10px;">Esperamos que disfrutes de tu estadía y te sientas como en casa.</p>
+                <p style="margin-top: 20px; font-weight: bold; color: var(--navy-deep); font-size: 14px;">Atentamente,<br><span style="color: var(--gold-luxury)">Luis Aguilar</span></p>
+            </div>
+            <div class="lang-en">
+                <p>Once again, we want to express our most sincere thank you for choosing our home for your stay. We are thrilled to have the opportunity to provide you with an exceptional experience and are here to help you at all times.</p>
+                <p style="margin-top: 10px;">We hope you enjoy your stay and feel right at home.</p>
+                <p style="margin-top: 20px; font-weight: bold; color: var(--navy-deep); font-size: 14px;">Best regards,<br><span style="color: var(--gold-luxury)">Luis Aguilar</span></p>
+            </div>
+        </div>
+
+        <div class="footer-action">
+            <a href="https://wa.me/526241574806?text=Hola%20Luis,%20estoy%20en%20la%20Casa%2023%20de%20Santa%20Barbara%20y%20requiero%20asistencia." class="btn-wa-direct" target="_blank">
+                <i class="fa-brands fa-whatsapp" style="font-size: 22px;"></i> 
+                <span class="lang-es">Contactar Soporte (WhatsApp)</span>
+                <span class="lang-en">Contact Support (WhatsApp)</span>
+            </a>
+        </div>
+
+    </div>
+
+    <script>
+        let currentLang = 'es';
+        function toggleLanguage() {
+            const esElements = document.querySelectorAll('.lang-es');
+            const enElements = document.querySelectorAll('.lang-en');
+            const btnText = document.getElementById('langBtnText');
+
+            if (currentLang === 'es') {
+                esElements.forEach(el => el.style.display = 'none');
+                enElements.forEach(el => el.style.display = 'block');
+                btnText.innerText = '🇲🇽 Español';
+                currentLang = 'en';
+            } else {
+                esElements.forEach(el => el.style.display = 'block');
+                enElements.forEach(el => el.style.display = 'none');
+                btnText.innerText = '🇺🇸 English';
+                currentLang = 'es';
+            }
+        }
+    </script>
+</body>
+</html>
